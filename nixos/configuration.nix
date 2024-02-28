@@ -44,8 +44,10 @@
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    xkb = {
+      layout = "us";
+      variant = "";
+    };
   };
 
   services.printing.enable = true;
@@ -60,16 +62,29 @@
     pulse.enable = true;
   };
 
+  # add /.local to $PATH
+  environment.variables={
+   NIXOS_OZONE_WL = "1";
+   PATH = [
+     "\${HOME}/.local/bin"
+     "\${HOME}/.config/rofi/scripts"
+   ];
+   NIXPKGS_ALLOW_UNFREE = "1";
+   #PKG_CONFIG_PATH = lib.makeLibraryPath [ libevdev ];
+  };
+
   home-manager.users.gulshan = { pkgs, ... }: {
 	  home.packages = [ pkgs.atool pkgs.httpie ];
 	  home.stateVersion = "23.11";
- };
+  };
 
   programs.fish.enable = true;
+  nixpkgs.config.allowUnfree = true;
+
   users.users.gulshan = {
     isNormalUser = true;
     description = "Gulshan";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     shell = pkgs.fish;
     packages = with pkgs; [
       firefox
@@ -78,6 +93,7 @@
     ];
   };
   fonts.packages = with pkgs; [];
+  environment.systemPackages = with pkgs; [];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

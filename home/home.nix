@@ -1,7 +1,6 @@
-{ hyprland, pkgs, ...}: {
+{ pkgs, ...}: {
 
   imports = [
-    hyprland.homeManagerModules.default
     ./programs
     ./scripts
     ./themes
@@ -14,37 +13,25 @@
 
   home.packages = (with pkgs; [
     #User Apps
-    celluloid
-    bibata-cursors
     vscode
-    lollypop
     
     #utils
     git
     rustup
-    catimg
     curl
-    appimage-run
-    pavucontrol
-    sqlite
 
     #misc 
     nano
-    rofi
     wget
-    btop
-    tokyo-night-gtk
+    # tokyo-night-gtk
+    gedit
 
     python311Full
     poetry
     jetbrains-toolbox
     pre-commit
   ]) ++ (with pkgs.gnome; [ 
-    nautilus
-    zenity
     gnome-tweaks
-    eog
-    gedit
     gnome-terminal
   ]);
 
