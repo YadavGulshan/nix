@@ -78,14 +78,14 @@
 	  home.stateVersion = "23.11";
   };
 
-  programs.fish.enable = true;
+  programs.zsh.enable = true;
   nixpkgs.config.allowUnfree = true;
 
   users.users.gulshan = {
     isNormalUser = true;
     description = "Gulshan";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    shell = pkgs.fish;
+    shell = pkgs.zsh;
     packages = with pkgs; [
       firefox
       brave
